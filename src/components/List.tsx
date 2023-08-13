@@ -1,50 +1,32 @@
-import {useContext} from "react";
-import {FilterContext} from "../Context";
-
+import {FormControl, Input, InputAdornment} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import "../App.css";
+import {FantasyList} from "./Lists/FantasyList";
+import {CiFiList} from "./Lists/CiFiList";
+import {AventureList} from "./Lists/Aventure";
 export const ListBooks = () => {
-  const {booksFiltereds, addBookToRead, booksToRead, deleteBookFromRead} =
-    useContext(FilterContext);
+  // const {booksFiltereds, addBookToRead, booksToRead, deleteBookFromRead} =
+  //   useContext(FilterContext);
+
   return (
-    <article>
-      <section>
-        <h1>List Books</h1>
-        <div>
-          <div>
-            {booksFiltereds.map((book) => {
-              return (
-                <div key={book.book.ISBN}>
-                  {book.book.title}{" "}
-                  <button
-                    className="bg-blue-500 p-2 rounded text-white"
-                    onClick={() => addBookToRead(book.book)}
-                  >
-                    Add
-                  </button>
-                </div>
-              );
-            })}
-          </div>
+    <article className=" mt-[70px] w-full">
+      <section className="flex flex-col gap-4 w-full justify-center items-center">
+        <div className="">
+          <FormControl variant="outlined">
+            <Input
+              placeholder="Search"
+              id="input-with-icon-adornment"
+              startAdornment={
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
         </div>
-        <div>
-          <h1 className="bg-red-500 text-white">Books to read</h1>
-          {booksToRead ? (
-            booksToRead.map((book) => {
-              return (
-                <div key={book.ISBN}>
-                  {book.title}
-                  <button
-                    className="bg-red-500 p-2 rounded text-white"
-                    onClick={() => deleteBookFromRead(book)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              );
-            })
-          ) : (
-            <p>No books</p>
-          )}
-        </div>
+        <FantasyList />
+        <CiFiList />
+        <AventureList />
       </section>
     </article>
   );

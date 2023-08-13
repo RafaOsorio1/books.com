@@ -1,12 +1,13 @@
-import { Fragment } from "react";
+import {Fragment} from "react";
 import "./App.css";
-import { ListBooks } from "./components/List";
-import { Filters } from "./components/Filters";
+import {ListBooks} from "./components/List";
+import {Header} from "./components/Header";
+import {Filters} from "./components/Filters";
 
 function App() {
   return (
     <Fragment>
-      <Filters />
+      <Header />
       <ListBooks />
     </Fragment>
   );

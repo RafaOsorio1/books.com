@@ -7,7 +7,11 @@ type ContextProps = {
   booksFiltereds: Library[];
   genres: string[];
   handleGenre: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handlePage: (event: Event, value: number) => void;
+  handlePage: (
+    event: Event,
+    value: number | number[],
+    activeThumb: number
+  ) => void;
   filterGenre: string;
   filterPages: number;
   addBookToRead: (book: Book) => void;
@@ -49,9 +53,19 @@ export const FilterContextProvider = ({
   const handlePage = (event: Event, value: number | number[]) => {
     if (typeof value === "number") {
       setFilterPages(value);
-      console.log(value);
     }
   };
+  //@ts-ignore
+  const filteredBooksPages = useMemo(() => {
+    if (filterPages === 0) {
+      setBooksFiltereds(initialData);
+    } else {
+      setBooksFiltereds(
+        initialData.filter((book) => book.book.pages >= filterPages)
+      );
+    }
+    return booksFiltereds;
+  }, [filterPages, initialData]);
 
   //@ts-ignore
   const filteredBooksGenre = useMemo(() => {
